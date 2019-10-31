@@ -15,6 +15,12 @@ public class EvaluationService {
 	 */
 	public String reverse(String string) {
 		
+		int length;
+		
+		
+		
+		
+		
 		return "";
 	}
 
