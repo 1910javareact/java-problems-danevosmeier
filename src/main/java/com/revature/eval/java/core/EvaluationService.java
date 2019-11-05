@@ -392,10 +392,13 @@ public class EvaluationService {
 		//count total number of digits of number		
 		//raise each digit to the power of count (digit^count)
 		
-		for(int digit : digitArray) {
-			
+		//for(int digit : digitArray) {
+			for(int i = 0; i < singleDigit.length(); i++) {
+				total += Math.pow(digitArray[i], singleDigit.length());
+				
+				
 			//add each raised digit
-			total += Math.pow(digit, singleDigit.length());
+			//total += Math.pow(digit, singleDigit.length());
 		}
 		
 		//compare if the orginal number is set to sum of raised digits
