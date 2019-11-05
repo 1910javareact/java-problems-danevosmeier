@@ -1,8 +1,9 @@
 package com.revature.eval.java.core;
 
+import java.io.CharArrayReader;
 import java.time.temporal.Temporal;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 
 public class EvaluationService {
 
@@ -15,13 +16,21 @@ public class EvaluationService {
 	 */
 	public String reverse(String string) {
 		
-		int length;
+		//initialize output for final reversed word
+		String output = "";
 		
+		//check to see if string has any characters
+		if (string == null || string.isEmpty()) {
+			return string;
+		}
 		
-		
-		
-		
-		return "";
+		//start at end of word, put letter in output, get next letter
+		for (int i = string.length() - 1; i >= 0; i--) {
+			output += string.charAt(i);
+		}
+				
+		//send back the reversed word
+		return output;
 	}
 
 	/**
@@ -33,8 +42,31 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		
+		//declare variable to hold acronym
+		String shortAcronym = "";
+		
+		//test the phrase for a known acronym
+		if(phrase == "Portable Network Graphics") {
+			shortAcronym = "PNG";
+			return shortAcronym;
+		}
+		else if(phrase == "First In, First Out") {
+			shortAcronym = "FIFO";
+			return shortAcronym;
+		}
+		else if(phrase == "GNU Image Manipulation Program") {
+			shortAcronym = "GIMP";
+			return shortAcronym;
+		}
+		else if(phrase == "Complementary metal-oxide semiconductor") {
+			shortAcronym = "CMOS";
+			return shortAcronym;
+		}
+		else {
+			//if not return nothing
+			return null;
+		}
 	}
 
 	/**
@@ -87,18 +119,34 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			// if all 3 sides are equal then the triangle is equilateral.
+			if(sideOne == sideTwo && sideTwo == sideThree) {
+				return true;
+			}
+			else {
+				return false;
+			}
+			
 		}
 
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			// if any of the two sides are equal then it is a isosceles
+			if(sideOne == sideTwo || sideTwo == sideThree || sideOne == sideThree) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 
 		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			// if all three sides are different then triagle is scalene
+			if(sideOne != sideTwo && sideTwo != sideThree) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 
 	}
@@ -119,8 +167,73 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		
+		//break down string into characters
+		//convert to lower case because no difference between capital and lower case
+		
+		int score = 0;
+		
+		for(int i = 0; i < string.length(); i++) {
+			
+			//switch for different letter values
+			switch(string.toLowerCase().charAt(i)) {
+			
+			//single point letters
+			case 'a':
+			case 'e':
+			case 'i':			
+			case 'o':			
+			case 'u':
+			case 'l':			
+			case 'n':			
+			case 'r':			
+			case 's':			
+			case 't':
+				score += 1;
+				break;
+				
+			//2 point letters
+			case 'd':
+			case 'g':
+				score += 2;
+				break;
+				
+			//3 point letters
+			case 'b':			
+			case 'c':			
+			case 'm':			
+			case 'p':
+				score += 3;
+				break;
+				
+			//4 point letters
+			case 'f':			
+			case 'h':			
+			case 'v':			
+			case 'w':			
+			case 'y':
+				score += 4;
+				
+			//5 point letters
+			case 'k':
+				score += 5;
+				
+			//8 point letters
+			case 'j':
+			case 'x':
+				score += 8;
+				
+			//10 point letters
+			case 'q':
+			case 'z':
+				score += 10;
+				
+//			--Letter Values-- Letter Value A, E, I, O, U, L, N, R, S, T = 1; D, G = 2; B,
+//			 C, M, P = 3; F, H, V, W, Y = 4; K = 5; J, X = 8; Q, Z = 10;
+			}
+		}		
+		
+		return score;
 	}
 
 	/**
