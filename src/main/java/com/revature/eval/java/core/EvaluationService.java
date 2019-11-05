@@ -382,8 +382,29 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isArmstrongNumber(int input) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		
+		//break down number into single digits
+		
+		String singleDigit = String.valueOf(input);
+		int[] digitArray = new int[singleDigit.length()];
+		int total = 0;
+		
+		//count total number of digits of number		
+		//raise each digit to the power of count (digit^count)
+		
+		for(int digit : digitArray) {
+			
+			//add each raised digit
+			total += Math.pow(digit, singleDigit.length());
+		}
+		
+		//compare if the orginal number is set to sum of raised digits
+		if (input == total) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	/**
@@ -397,7 +418,8 @@ public class EvaluationService {
 	 * @return
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
-		// TODO Write an implementation for this method declaration
+		
+		
 		return null;
 	}
 
