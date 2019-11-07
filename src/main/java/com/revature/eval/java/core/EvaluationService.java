@@ -43,30 +43,48 @@ public class EvaluationService {
 	 */
 	public String acronym(String phrase) {
 		
-		//declare variable to hold acronym
-		String shortAcronym = "";
+		//take the first letter in the phrase
+		String acronym = Character.toString(phrase.charAt(0));
+	
+		for(int i = 0; i < phrase.length(); i++) {
+			
+			//find the first space or hyphen and take the next letter
+			if (phrase.charAt(i) == ' ' || phrase.charAt(i) == '-') {
+				
+				//make letter uppercase, add letter to acronym
+				acronym += phrase.toUpperCase().charAt(i + 1);
+			}
+		}
 		
-		//test the phrase for a known acronym
-		if(phrase == "Portable Network Graphics") {
-			shortAcronym = "PNG";
-			return shortAcronym;
-		}
-		else if(phrase == "First In, First Out") {
-			shortAcronym = "FIFO";
-			return shortAcronym;
-		}
-		else if(phrase == "GNU Image Manipulation Program") {
-			shortAcronym = "GIMP";
-			return shortAcronym;
-		}
-		else if(phrase == "Complementary metal-oxide semiconductor") {
-			shortAcronym = "CMOS";
-			return shortAcronym;
-		}
-		else {
-			//if not return nothing
-			return null;
-		}
+		return acronym;
+		
+		//hard code version
+		
+//		//declare variable to hold acronym
+//		String shortAcronym = "";
+//		
+//		
+//		
+//		//test the phrase for a known acronym
+//		if(phrase == "Portable Network Graphics") {
+//			shortAcronym = "PNG";
+//			return shortAcronym;
+//		}
+//		else if(phrase == "First In, First Out") {
+//			shortAcronym = "FIFO";
+//			return shortAcronym;
+//		}
+//		else if(phrase == "GNU Image Manipulation Program") {
+//			shortAcronym = "GIMP";
+//			return shortAcronym;
+//		}
+//		else if(phrase == "Complementary metal-oxide semiconductor") {
+//			shortAcronym = "CMOS";
+//			return shortAcronym;
+//		}
+//		else {
+//			//if not return nothing
+//			return null;
 	}
 
 	/**
@@ -176,7 +194,8 @@ public class EvaluationService {
 		for(int i = 0; i < string.length(); i++) {
 			
 			//switch for different letter values
-			switch(string.toLowerCase().charAt(i)) {
+			char letter = string.toLowerCase().charAt(i);
+			switch(letter) {
 			
 			//single point letters
 			case 'a':
@@ -213,20 +232,24 @@ public class EvaluationService {
 			case 'w':			
 			case 'y':
 				score += 4;
+				break;
 				
 			//5 point letters
 			case 'k':
 				score += 5;
+				break;
 				
 			//8 point letters
 			case 'j':
 			case 'x':
 				score += 8;
+				break;
 				
 			//10 point letters
 			case 'q':
 			case 'z':
 				score += 10;
+				break;
 				
 //			--Letter Values-- Letter Value A, E, I, O, U, L, N, R, S, T = 1; D, G = 2; B,
 //			 C, M, P = 3; F, H, V, W, Y = 4; K = 5; J, X = 8; Q, Z = 10;
@@ -268,7 +291,12 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		// TODO Write an implementation for this method declaration
+		
+		//check each character, including spaces
+		//and if not a whole number, remove character
+		string.trim();
+		
+		
 		return null;
 	}
 
@@ -282,7 +310,9 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
+		
+		
+		
 		return null;
 	}
 
@@ -401,7 +431,7 @@ public class EvaluationService {
 			//total += Math.pow(digit, singleDigit.length());
 		}
 		
-		//compare if the orginal number is set to sum of raised digits
+		//compare if the original number is set to sum of raised digits
 		if (input == total) {
 			return true;
 		}
@@ -422,7 +452,14 @@ public class EvaluationService {
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
 		
-		
+		//start checking at two if the number is divisible by itself and one
+		for(int i = 2; i < l; i++) {
+			//while number given and loop are wholly divisible
+			//
+			while(l % i == 0) {
+				l = l / i;
+			}
+		}
 		return null;
 	}
 
