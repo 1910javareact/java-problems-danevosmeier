@@ -158,7 +158,7 @@ public class EvaluationService {
 		}
 
 		public boolean isScalene() {
-			// if all three sides are different then triagle is scalene
+			// if all three sides are different then triangle is scalene
 			if(sideOne != sideTwo && sideTwo != sideThree) {
 				return true;
 			}
@@ -294,10 +294,25 @@ public class EvaluationService {
 		
 		//check each character, including spaces
 		//and if not a whole number, remove character
-		string.trim();
 		
+		//remove leading and trailing whitespace
+		String cleanNumber = string.trim();
 		
-		return null;
+		char[] letter = string.toCharArray();
+		//Character.isDigit(letter);
+		for(int i = 0; i < string.length(); i++) {
+			if(letter[i] != ' ' || letter[i] != '.' || letter[i] != '-' ||
+					letter[i] != '(' || letter[i] != ')' || letter[0] != '1') {
+				
+				cleanNumber += letter[i];
+				
+			}
+			else {
+				continue;	
+			}
+		}
+		
+		return cleanNumber;
 	}
 
 	/**
