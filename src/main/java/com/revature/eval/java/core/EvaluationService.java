@@ -295,21 +295,38 @@ public class EvaluationService {
 		//check each character, including spaces
 		//and if not a whole number, remove character
 		
-		//remove leading and trailing whitespace
-		String cleanNumber = string.trim();
+		String cleanNumber = "";
 		
 		char[] letter = string.toCharArray();
-		//Character.isDigit(letter);
-		for(int i = 0; i < string.length(); i++) {
-			if(letter[i] != ' ' || letter[i] != '.' || letter[i] != '-' ||
-					letter[i] != '(' || letter[i] != ')' || letter[0] != '1') {
+		
+		//add only numbers to clean phone number
+		for(int i = 0; i < letter.length; i++) {
+			if(letter[i] == '1' || letter[i] == '2' || letter[i] == '3' ||
+				letter[i] == '4' || letter[i] == '5' || letter[i] == '6' ||
+				letter[i] == '7' || letter[i] == '8' || letter[i] == '9' ||
+				letter[i] == '0'){
 				
 				cleanNumber += letter[i];
+			}
+		}
+		
+		//remove country code if applicable
+		if(cleanNumber.charAt(0) == 1) {
+			
+			cleanNumber = cleanNumber.substring(1);
+		}
+		
+		//clean phone number must have 10 digits
+		if(cleanNumber.length() != 10) {
+			
+			throw new IllegalArgumentException();
+		}
+		
+		//first number or fourth number cannot be a 1 or 0
+		if(cleanNumber.charAt(0) == 1 || cleanNumber.charAt(0) == 0 ||
+			cleanNumber.charAt(3) == 0 || cleanNumber.charAt(3) == 1) {
 				
-			}
-			else {
-				continue;	
-			}
+			throw new IllegalArgumentException();
 		}
 		
 		return cleanNumber;
@@ -326,9 +343,33 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		
+		Map<String, Integer> words = new HashMap<>();
 		
+		//replace comma, new lines, and plus signs with spaces
+		string = string.replaceAll(",", " ");
+		string = string.replaceAll("\n", " ");
+		string = string.replaceAll(" +", " ");
 		
-		return null;
+		int counter = 0;
+		
+		//make an array of each word after each space
+		String[] wordsArray = string.split(" ");
+		
+		//for each element in wordsArray
+		//add a new word to end of the HashMap
+		//add to the counter if already exists
+		
+		for(String e : wordsArray) {
+			if(words.containsKey(e)) {
+				counter = words.get(e) + 1;
+				words.put(e, counter);
+			}
+			else if(!words.containsKey(e)) {
+				words.put(e, 1);
+			}
+		}
+		
+		return words;
 	}
 
 	/**
@@ -368,10 +409,32 @@ public class EvaluationService {
 	 */
 	static class BinarySearch<T> {
 		private List<T> sortedList;
-
+		
+		//create a new method so it can call itself(recursive)
+		public int binarySearch(int right, int left, T generic) {
+			
+			//find the middle by dividing left and right by 2
+	
+			int mid = left + ((right - left) / 2);
+			
+			//if the middle is found return the middle
+			if (sortedList.get(mid).equals(generic)) {
+				return mid;
+			}
+			
+			//cast the generics to ints inorder to compare
+			//keep splitting sortedList
+			if ((int)sortedList.get(mid) < (int)generic) {
+				return binarySearch(right, mid + 1, generic);
+			}
+			else {
+				return binarySearch(mid - 1, left, generic);
+			}
+		}
+		
+		//use new method to search through sortedList
 		public int indexOf(T t) {
-			// TODO Write an implementation for this method declaration
-			return 0;
+			return this.binarySearch(sortedList.size() - 1, 0, t);
 		}
 
 		public BinarySearch(List<T> sortedList) {
