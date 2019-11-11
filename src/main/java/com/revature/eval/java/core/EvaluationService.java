@@ -510,6 +510,10 @@ public class EvaluationService {
 		
 		String singleDigit = String.valueOf(input);
 		int[] digitArray = new int[singleDigit.length()];
+		
+		for(int i = 0; i < singleDigit.length(); i++) {
+				digitArray[i] = Integer.parseInt(singleDigit);
+		}
 		int total = 0;
 		
 		//count total number of digits of number		
@@ -675,13 +679,17 @@ public class EvaluationService {
 		int number = 1;
 		int counter = 0;
 		
+		//while there are still numbers left
 		while (counter < i) {
 			number++;
+			//start at 2 because 1 is neither prime or composite
 			for(checkPrime = 2; checkPrime <= number; checkPrime++) {
+				//prime number is only divisible by itself and 1
 				if(number % checkPrime == 0) {
 					break;
 				}
 			}
+			//add prime to the counter
 			if(checkPrime == number) {
 				counter++;
 			}
@@ -722,11 +730,14 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String encode(String string) {
+			
 			//make string into lowercase
 			string = string.toLowerCase();
+			
 			//provide the alphabet and reverse alphabet
 			String[] alphabet = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","1","2","3"};
 			String[] reverseAlphabet = {"z","y","x","w","v","u","t","s","r","q","p","o","n","m","l","k","j","i","h","g","f","e","d","c","b","a","1","2","3"};
+			
 			//a string for encoded text
 			String encoded = "";
 			int count = 0;
@@ -763,6 +774,7 @@ public class EvaluationService {
 			String decoded = "";
 			int count = 0;
 			
+			//same logic as encoding
 			for(int i = 0; i < string.length(); i++) {
 				for(int j = 0; j < alphabet.length; j++) {
 					String letter = "" + string.charAt(i);
@@ -805,6 +817,7 @@ public class EvaluationService {
 		
 		int tracker = 0;
 		
+		//look for numbers only
 		for(int i = 0; i < isbnNumbers.length; i++) {
 			if(isbnNumbers[i].equals("0") || isbnNumbers[i].equals("1") || isbnNumbers[i].equals("2") ||
 				isbnNumbers[i].equals("3") || isbnNumbers[i].equals("4") || isbnNumbers[i].equals("5") ||
@@ -813,6 +826,7 @@ public class EvaluationService {
 					
 					numberCheck += (Integer.valueOf(isbnNumbers[i])) * (10 - tracker);
 			}
+			//do not count if a dash
 			else if(isbnNumbers[i].equals("-")) {
 				tracker--;
 			}
@@ -824,6 +838,8 @@ public class EvaluationService {
 			}
 			tracker++;
 		}
+		
+		//make sure numberCheck is divisible by 11
 		if(numberCheck % 11 == 0) {
 			return true;
 		}
@@ -846,14 +862,19 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isPangram(String string) {
+		
+		//provide alphabet
 		String[] alphabet = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
 		int count = 0;
 		
+		//make sure each letter is contained in sentence
 		for(int i = 0; i < alphabet.length; i++) {
 			if(string.contains(alphabet[i])) {
 				count++;
 			}
 		}
+		
+		//there are 26 letters in the alphabet
 		if(count == 26) {
 			return true;
 		}
@@ -871,7 +892,7 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Temporal getGigasecondDate(Temporal given) {
-		// TODO Write an implementation for this method declaration
+
 		return null;
 	}
 
@@ -941,10 +962,12 @@ public class EvaluationService {
 	public boolean isLuhnValid(String string) {
 		int sum = 0;
 		
+		//double every second digit
 		for(int i = 1; i < string.length(); i += 2) {
 			sum += 2 * string.charAt(i);
 		}
 		
+		//check if a multiple of 10
 		if (sum % 10 == 0) {
 			return true;
 		}
@@ -987,10 +1010,13 @@ public class EvaluationService {
 		
 		String temp = "";
 		
+		//split the input into individual words
 		String[] input = string.split(" ");
 		
+		//get first number
 		firstNumber = Integer.valueOf(input[2]);
 		
+		//remove ? marks
 		if (input.length == 5) {
 			temp += input[4].replace("?", "");
 			secondNumber = Integer.valueOf(temp);
@@ -1000,15 +1026,19 @@ public class EvaluationService {
 			secondNumber = Integer.valueOf(temp);
 		}
 		
+		//convert plus to +
 		if (input[3].equals("plus")) {
 			output = firstNumber + secondNumber;
 		}
+		//minus to -
 		else if (input[3].equals("minus")) {
 			output = firstNumber - secondNumber;
 		}
+		//multiplied to *
 		else if (input[3].equals("multiplied")) {
 			output = firstNumber * secondNumber;
 		}
+		//divided to /
 		else if (input[3].equals("divided")) {
 			output = firstNumber / secondNumber;
 		}
